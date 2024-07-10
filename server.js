@@ -4,7 +4,7 @@ const errorHandler = require('errorhandler');
 const morgan = require('morgan');
 const express = require('express');
 
-import{ apiRouter } from './api/api';
+const apiRouter = require('./api/api');     
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -13,20 +13,9 @@ const PORT = process.env.PORT || 4001;
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('dev'));
+app.use(errorHandler());
 
 app.use('/api', apiRouter);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

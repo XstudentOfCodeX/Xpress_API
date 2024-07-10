@@ -2,26 +2,19 @@ const sqlite3 = require('sqlite3');
 
 const db = new sqlite3.Database('./database.sqlite');
 
-db.serialize(() => {
-    db.run('DROP TABLE IF EXIST Artist', (error) => {
-        if(error) {
-            console.error(error.message);
-        }
-        console.log('Connected to the mydatabase.db SQLite database.')
-    })
-    db.run(`CREATE TABLE Artist
-        (id INTEGER PRIMARY KEY,
-        name TEXT,
-        date_of_birth TEXT,
-        biography TEXT,
-        is_currently_employed INTEGER DEFAULT 1
-        )`, (error) => {
+
+  db.serialize(function() {
+    db.run('CREATE TABLE IF NOT EXISTS `Artist` ( ' +
+        '`id` INTEGER NOT NULL, ' +
+        '`name` TEXT NOT NULL, ' +
+        '`date_of_birth` TEXT NOT NULL, ' +
+        '`biography` TEXT NOT NULL, ' +
+        '`is_currently_employed` INTEGER NOT NULL DEFAULT 1, ' +
+        'PRIMARY KEY(`id`) )', (error) => {
             if (error) {
               console.error(error.message);
             } else {
-              console.log('Table "Strip" created successfully.');
+              console.log('Table "Artist" created successfully.');
             }
     });
 });
-
-

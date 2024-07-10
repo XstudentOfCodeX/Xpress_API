@@ -1,5 +1,8 @@
-import { express } from '/server.js'
+const express = require('express');
 const apiRouter = express.Router();
+const artistRouter = require('./artist');
+
+
 
 
 
