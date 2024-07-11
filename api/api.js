@@ -1,6 +1,6 @@
 const express = require('express');
 const apiRouter = express.Router();
-const artistRouter = require('./artist');
+const artistsRouter = require('./artist');
 
 
 

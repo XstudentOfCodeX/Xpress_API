@@ -10,11 +10,5 @@ const db = new sqlite3.Database('./database.sqlite');
         '`date_of_birth` TEXT NOT NULL, ' +
         '`biography` TEXT NOT NULL, ' +
         '`is_currently_employed` INTEGER NOT NULL DEFAULT 1, ' +
-        'PRIMARY KEY(`id`) )', (error) => {
-            if (error) {
-              console.error(error.message);
-            } else {
-              console.log('Table "Artist" created successfully.');
-            }
-    });
+        'PRIMARY KEY(`id`) )');
 });
