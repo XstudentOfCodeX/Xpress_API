@@ -4,6 +4,9 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
 
 
   db.serialize(function() {
+
+    db.run('PRAGMA foreign_keys = ON;');
+
     db.run('CREATE TABLE IF NOT EXISTS `Artist` ( ' +
         '`id` INTEGER NOT NULL, ' +
         '`name` TEXT NOT NULL, ' +
@@ -27,10 +30,18 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
         '`series_id` INTEGER NOT NULL, ' +
         'PRIMARY KEY (`id`), ' +
         'FOREIGN KEY(`artist_id`) REFERENCES `Artist`(`id`), ' +
-        'FOREIGN KEY(`series_id`) REFERENCES `Series`(`id`) )');
+        'FOREIGN KEY(`series_id`) REFERENCES `Series`(`id`))', 
+        function(err) {
+          if (err) {
+              console.log('Error creating Issue table:', err);
+          } else {
+              console.log('Issue table created successfully');
+          }
+          });
+
 });
 
-
+db.close();
 
 
 
