@@ -6,7 +6,7 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
 
 artistsRouter.param('artistId', (req, res, next, artistId) => {
     const sql = 'SELECT * FROM Artist WHERE Artist.id = $artistId';
-    const values = { $artistId: artistId };
+    const values = {$artistId: artistId};
     db.get(sql, values, (error, artist) => {
         if(error){
             next(error)
@@ -26,7 +26,7 @@ artistsRouter.get('/', (req, res, next) => {
         if(err){
             next(err);
         } else {
-            res.status(200).json({ artists: artists });
+            res.status(200).json({artists: artists});
         }
     });
 });
@@ -35,7 +35,7 @@ artistsRouter.get('/', (req, res, next) => {
 
 
 artistsRouter.get('/:artistId', (req, res, next) => {
-    res.status(200).json({ artist: req.artist });
+    res.status(200).json({artist: req.artist});
 })
 
 
@@ -70,7 +70,6 @@ artistsRouter.post('/', (req, res, next) => {
                     function(err, artist) {
                         if(err) {
                             console.error("Error retrieving artist: ", err);
-                            next(err);
                         } else {
                             console.log("Retrieved artist: ", artist);
                              res.status(201).json({ artist: artist });

@@ -4,6 +4,8 @@ const issuesRouter = express.Router({mergeParams: true});
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
+
+
 issuesRouter.param('issueId', (req, res, next, issueId) => {
     const sql = 'SELECT * FROM Issue WHERE Issue.id = $issueId';
     const values = {issueId: issueId};
@@ -99,7 +101,6 @@ issuesRouter.put('/:issueId', (req, res, next) => {
             $issueNumber: issueNumber,
             $publicationDate: publicationDate,
             $artistId: artistId,
-            $seriesId: req.params.seriesId,
             $issueId: req.params.issueId
         };
         db.run(sql, values, function(err) {
@@ -129,12 +130,5 @@ issuesRouter.delete('/:issueId', (req, res, next) => {
         }
     }); 
 });
-        
-        
-
-
-
-
-
-
+    
 module.exports = issuesRouter;

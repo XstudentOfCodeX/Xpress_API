@@ -38,15 +38,14 @@ seriesRouter.get('/', (req, res, next) => {
             console.error('Issue with retrieving data')
             next(err);
         } else {
-            res.status(200).json({ series: series });
+            res.status(200).json({series: series});
         }
     });
 });
 
 
 seriesRouter.get('/:seriesId', (req, res, next) => {
-    res.status(200).json({ series: req.series });
-    next(); 
+    res.status(200).json({series: req.series});
 });
 
 
@@ -76,7 +75,6 @@ seriesRouter.post('/', (req, res, next) => {
                     function(err, series) {
                         if(err) {
                             console.error('Error retrieving data', err);
-                            next(err);
                         } else {
                             console.log('data sent to DB', series);
                             res.status(201).json({series: series});
@@ -113,7 +111,6 @@ seriesRouter.post('/', (req, res, next) => {
                         function(err, series) {
                             if(err) {
                                 console.error('Error Retrieving data', err);
-                                next(err);
                             } else {
                                 console.log('Successfully retrieved data', series);
                                 res.status(200).json({series: series});
@@ -153,16 +150,4 @@ seriesRouter.delete('/:seriesId', (req, res, next) => {
 });
 
                         
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = seriesRouter;
