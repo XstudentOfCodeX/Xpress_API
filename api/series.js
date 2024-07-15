@@ -27,7 +27,7 @@ seriesRouter.param('seriesId', (req, res, next, seriesId) => {
 });
 
 
-apiRouter.use('/:seriesId/issues', issuesRouter);
+seriesRouter.use('/:seriesId/issues', issuesRouter);
 
 
 
