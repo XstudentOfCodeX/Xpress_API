@@ -118,17 +118,32 @@ issuesRouter.put('/:issueId', (req, res, next) => {
 });
 
 issuesRouter.delete('/:issueId', (req, res, next) => {
-    db.run(`DELETE FROM Issue WHERE Issue.id = $issueId`, 
-        {
-            $issueId: req.params.issueId
-        },
-        (err) => {
-        if(err){
-            next(err);
-        }else {
+    const issueId = req.params.issueId;
+    console.log('Attempting to delete issue with ID:', issueId);
+    
+    if (!issueId) {
+        return res.status(400).send('Issue ID is required');
+    }
+
+
+    const sql = 'DELETE FROM Issue WHERE Issue.id = $issueId';
+    const values = {$issueId: issueId};
+    
+    console.log('SQL Query:', sql);
+    console.log('Values:', values);
+    
+    db.run(sql, values, function(error) {
+        if (error) {
+            console.error('SQLITE ERROR:', error);
+            next(error);
+        } else {
+            console.log(`Issue with ID ${issueId} deleted successfully`);
             res.sendStatus(204);
         }
-    }); 
+    });
 });
-    
+  
+  
+
+
 module.exports = issuesRouter;

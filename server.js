@@ -3,6 +3,9 @@ const cors = require('cors');
 const errorHandler = require('errorhandler');
 const morgan = require('morgan');
 const express = require('express');
+// const sqlite3 = require('sqlite3');
+// const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
+
 
 const apiRouter = require('./api/api');     
 
@@ -18,7 +21,23 @@ app.use(errorHandler());
 app.use('/api', apiRouter);
 
 
+// db.serialize(() => {
+//     db.all('PRAGMA table_info(Issue)', (err, columns) => {
+//         if (err) {
+//             console.error('Error fetching table info:', err);
+//         } else {
+//             console.log('Issue table columns:', columns);
+//         }
+//     });
 
+//     db.all('SELECT * FROM Issue', (err, rows) => {
+//         if (err) {
+//             console.error('Error fetching issue rows:', err);
+//         } else {
+//             console.log('Issue table rows:', rows);
+//         }
+//     });
+// });
 
 
 
