@@ -12,7 +12,7 @@ seriesRouter.param('seriesId', (req, res, next, seriesId) => {
         {
             $seriesId: seriesId
         },
-        (err, series) => {
+        function(err, series) {
             if(err) {
                 console.error('Error in retrieving data');
                 next(err)
@@ -73,7 +73,7 @@ seriesRouter.post('/', (req, res, next) => {
                 next(err);
             } else {
                 db.get(`SELECT * FROM Series WHERE Series.id = ${this.lastID}`, 
-                    (err, series) => {
+                    function(err, series) {
                         if(err) {
                             console.error('Error retrieving data', err);
                             next(err);
@@ -105,12 +105,12 @@ seriesRouter.post('/', (req, res, next) => {
         };
 
         db.run(sql, values, 
-            (err) => {
+            function(err) {
                 if(err) {
                     next(err);
                 } else {
                     db.get(`SELECT * FROM Series WHERE Series.id = ${req.params.seriesId}`, 
-                        (err, series) => {
+                        function(err, series) {
                             if(err) {
                                 console.error('Error Retrieving data', err);
                                 next(err);
@@ -126,7 +126,31 @@ seriesRouter.post('/', (req, res, next) => {
     });                   
 
 
-
+seriesRouter.delete('/:seriesId', (req, res, next) => {
+    db.get('SELECT * FROM Issue WHERE Issue.series_id = $seriesId', 
+        {
+            $seriesId: req.params.seriesId
+        }, 
+        (err, issues) => {
+            if(err){
+                next(err);
+            } else if (issues) {
+                res.sendStatus(400);
+            } else {
+                db.run('DELETE FROM Series WHERE Series.id = $seriesId', 
+                    {
+                        $seriesId: req.params.seriesId
+                    },
+                    (err) => {
+                        if(err) {
+                            next(err);
+                        } else {
+                           res.sendStatus(204); 
+                        }
+                    });
+            }
+        });
+});
 
                         
 

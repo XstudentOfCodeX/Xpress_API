@@ -41,9 +41,9 @@ function seedIssueDatabase(done) {
                '`publication_date` TEXT NOT NULL, ' +
                '`artist_id` INTEGER NOT NULL, ' +
                '`series_id` INTEGER NOT NULL, ' +
-               'PRIMARY KEY(`id`) ' +
-               'FOREIGN KEY(`artist_id`) REFERENCES `Artist`(`id`) ' +
-               'FOREIGN KEY(`series_id`) REFERENCES `Series`(`id`) )');
+               'PRIMARY KEY(`id`), ' +
+               'FOREIGN KEY(`artist_id`) REFERENCES `Artist`(`id`), ' +
+               'FOREIGN KEY(`series_id`) REFERENCES `Series`(`id`))');
     db.run("INSERT INTO Issue (id, name, issue_number, publication_date, artist_id, series_id) VALUES (1, 'Series 2 Issue 1', 1, 'January 1, 1990', 1, 2)");
     db.run("INSERT INTO Issue (id, name, issue_number, publication_date, artist_id, series_id) VALUES (2, 'Series 2 Issue 2', 2, 'January 2, 1990', 1, 2)");
     db.run("INSERT INTO Issue (id, name, issue_number, publication_date, artist_id, series_id) VALUES (3, 'Series 3 Issue 1', 1, 'January 3, 1990', 1, 3)", done);

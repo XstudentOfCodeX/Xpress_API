@@ -67,7 +67,7 @@ artistsRouter.post('/', (req, res, next) => {
                 next(err);
             } else {
                 db.get(`SELECT * FROM Artist WHERE Artist.id = ${this.lastID}`, 
-                    (err, artist) => {
+                    function(err, artist) {
                         if(err) {
                             console.error("Error retrieving artist: ", err);
                             next(err);
@@ -104,12 +104,12 @@ artistsRouter.put('/:artistId', (req, res, next) => {
         $artistId: req.params.artistId
      }; 
 
-        db.run(sql, values, (err) => {
+        db.run(sql, values, function(err) {
             if (err) {
                 next(err);
             } else {
                 db.get(`SELECT * FROM Artist WHERE Artist.id = ${req.params.artistId}`, 
-                    (err, artist) => {
+                    function(err, artist) {
                         if(err){
                             console.error('Error deleting artist: ', artist)
                         } else {
@@ -128,13 +128,13 @@ artistsRouter.put('/:artistId', (req, res, next) => {
             {
                 $artistId: req.params.artistId
             },
-            (err) => {
+            function(err) {
                 if(err){
                     console.error('Error Occurred : ', err);
                     next(err);
                 } else {
                     db.get(`SELECT * FROM Artist WHERE Artist.id = ${req.params.artistId}`,
-                        (err, artist) => {
+                        function(err, artist) {
                             if(err) {
                                 console.error("Error deleting artist: ", err);
                             } else {
