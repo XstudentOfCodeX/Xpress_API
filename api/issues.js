@@ -8,7 +8,7 @@ issuesRouter.param('issueId', (req, res, next, issueId) => {
     const sql = 'SELECT * FROM Issue WHERE Issue.id = $issueId';
     const values = {issueId: issueId};
 
-    db.get(sql, values, (error, issues) => {
+    db.get(sql, values, (err, issues) => {
         if(err) {
             next(err);
         } else if (issues) {
